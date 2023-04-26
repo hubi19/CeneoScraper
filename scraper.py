@@ -1,6 +1,7 @@
 import requests
 from bs4 import BeautifulSoup
 import json
+import os
 
 product_code = input("Podaj kod produktu: ")
 #product_code = "2384258"
@@ -49,6 +50,10 @@ while(url):
         url = "https://www.ceneo.pl/"+ get_element(page_dom, "a.pagination__next", "href")
     except TypeError:
         url = None
+
+
+if not os.path.exists("./opinions"):
+    os.mkdir("./opinions")
 
 with open(f"./opinions/{product_code}.json", "w", encoding="UTF-8") as jf:
     json.dump(all_opinions, jf, indent=4, ensure_ascii=False)
